@@ -16,6 +16,7 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
     Mapa mapa;
     Dot dot;
     Personaje pj;
+    Enemigo ene;
 
     /*private static Teclado teclado; // Flags
 
@@ -52,6 +53,7 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
                     }
                 }
                 pj.paintPersonaje(g);
+                ene.paintEnemigo(g);
             }
         };
         this.add(pn, BorderLayout.CENTER);
@@ -59,6 +61,7 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
 
     public void ordenaComplementos(){
         pj = new Personaje();
+        ene = new Enemigo();
         //pj.posicion[X] = 0; // Flags
         //pj.posicion[Y] = 0;
     }
@@ -105,6 +108,9 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
             pj.dir = 4;
             this.repaint();
         }
+        ene.targetX = pj.posX;
+        ene.targetY = pj.posY;
+        ene.move();
     }
 
     @Override
