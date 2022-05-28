@@ -1,5 +1,7 @@
 import java.awt.Graphics;
 import java.awt.Color;
+import java.util.*;
+
 //import java.util.Random;
 
 public class Enemigo {
@@ -9,9 +11,14 @@ public class Enemigo {
     public int coorX;
     public int coorY;
 
+    public boolean vivo;
+
+    static ArrayList<Enemigo> enemigos = new ArrayList<Enemigo>();
+
     public Enemigo(){
-        coorX = 351;
-        coorY = 36;
+        coorX = 0;
+        coorY = 0;
+        vivo = true;
     }
 
     public void paintEnemigo(Graphics g){
@@ -56,6 +63,39 @@ public class Enemigo {
                     coorY -= 35;
                 }
             }
+            if (targetX == coorX && targetY == coorY){
+                vivo = false;
+            }
         }
+    }
+
+    public void respawnObjeto(){
+        int numRandom = (int)Math.floor(Math.random()*(19-1)+1);
+        int multiplo = (numRandom * 35) + 1;
+
+        coorX = multiplo;
+
+        /* for (int i = 0; i < listaAmenazas.size(); i++){
+            if (i == 0 || i == 3){
+                listaAmenazas.get(i).coorX = multiplo;
+            }
+            else{
+                listaAmenazas.get(i).coorX = multiplo + 15;
+            }
+        } */
+
+        numRandom = (int)Math.floor(Math.random()*(19-1)+1);
+        multiplo = (numRandom * 35) + 1;
+
+        coorY = multiplo;
+
+        /* for (int i = 0; i < listaAmenazas.size(); i++){
+            if (i == 0 || i == 1){
+                listaAmenazas.get(i).coorY = multiplo;
+            }
+            else{
+                listaAmenazas.get(i).coorY = multiplo + 15;
+            }
+        } */
     }
 }

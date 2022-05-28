@@ -16,7 +16,11 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
     Mapa mapa;
     Dot dot;
     Personaje pj;
-    Enemigo ene;
+    //Enemigo ene;
+    Enemigo ene2;
+    Enemigo ene3;
+
+    int contadorTurnos;
 
     /*private static Teclado teclado; // Flags
 
@@ -35,6 +39,7 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
         this.setBounds(50,50,740,745); // Cambiar para los nuevos paneles
         ordenaComplementos();
         crearTablero(1, 0, 0);
+        contadorTurnos = 1;
         
         //agregarElementos(); // Flags
         //this.pack();
@@ -53,7 +58,12 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
                     }
                 }
                 pj.paintPersonaje(g);
-                ene.paintEnemigo(g);
+
+                for (int i=0;i<Enemigo.enemigos.size();i++) {
+                    if (Enemigo.enemigos.get(i).vivo == true){
+                        Enemigo.enemigos.get(i).paintEnemigo(g);
+                    }
+                }
             }
         };
         this.add(pn, BorderLayout.CENTER);
@@ -61,9 +71,19 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
 
     public void ordenaComplementos(){
         pj = new Personaje();
-        ene = new Enemigo();
-        //pj.posicion[X] = 0; // Flags
-        //pj.posicion[Y] = 0;
+
+        int cont = 1;
+        while (cont <= 3)
+        { 
+            agregaEnemigo();
+            cont += 1;
+        }
+    }
+
+    public void agregaEnemigo(){
+        Enemigo ene = new Enemigo();
+        ene.respawnObjeto();
+        Enemigo.enemigos.add(ene);
     }
 
     /**Este metodo se ejecuta cuando se presiona una tecla*/
@@ -108,9 +128,32 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
             pj.dir = 4;
             this.repaint();
         }
-        ene.targetX = pj.posX;
-        ene.targetY = pj.posY;
-        ene.move();
+
+        if (e.VK_SPACE == e.getKeyCode())
+        {
+            System.out.println("SPACE presionado");
+            pj.atacar();
+            this.repaint();
+            //dot.move(4); // Flag
+            //moveDot();
+            //pj.move(1);
+            //pj.dir = 4;
+            //this.repaint();
+        }
+
+        if ((e.VK_W == e.getKeyCode()) || (e.VK_A == e.getKeyCode()) || (e.VK_S == e.getKeyCode()) || (e.VK_D == e.getKeyCode())){
+            for (int i=0;i<Enemigo.enemigos.size();i++) { 
+                Enemigo.enemigos.get(i).targetX = pj.posX;
+                Enemigo.enemigos.get(i).targetY = pj.posY;
+    
+                Enemigo.enemigos.get(i).move();
+            }
+            if ((contadorTurnos % 10) == 0){
+                agregaEnemigo();
+            }
+
+            contadorTurnos += 1;
+        }
     }
 
     @Override

@@ -59,4 +59,29 @@ public class Personaje implements Constantes{
             posY -= 35; 
         }
     }
+
+    public void atacar(){
+        for (int i=0;i<Enemigo.enemigos.size();i++) {
+            if (dir == 1){
+                if (Enemigo.enemigos.get(i).coorX == posX && Enemigo.enemigos.get(i).coorY == posY - 35){
+                    Enemigo.enemigos.get(i).vivo = false;
+                }
+            }
+            if (dir == 2){
+                if (Enemigo.enemigos.get(i).coorY == posY && Enemigo.enemigos.get(i).coorX == posX + 35){
+                    Enemigo.enemigos.get(i).vivo = false;
+                }
+            }
+            if (dir == 3){
+                if (Enemigo.enemigos.get(i).coorX == posX && Enemigo.enemigos.get(i).coorY == posY + 35){
+                    Enemigo.enemigos.get(i).vivo = false;
+                }
+            }
+            if (dir == 4){
+                if (Enemigo.enemigos.get(i).coorY == posY && Enemigo.enemigos.get(i).coorX == posX - 35){
+                    Enemigo.enemigos.get(i).vivo = false;
+                }
+            }
+        }
+    }
 }
