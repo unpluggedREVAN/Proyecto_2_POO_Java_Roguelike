@@ -9,6 +9,7 @@ import java.awt.Graphics;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+//import proyecto.pkg2.Aliado;
 
 public class GUI extends JFrame implements ActionListener, Constantes, KeyListener{
     JFrame ventana;
@@ -19,6 +20,7 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
     //Enemigo ene;
     Enemigo ene2;
     Enemigo ene3;
+    
 
     int contadorTurnos;
 
@@ -64,6 +66,11 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
                         Enemigo.enemigos.get(i).paintEnemigo(g);
                     }
                 }
+                for (int i=0;i<Aliado.aliados.size();i++) {         //
+                    if (Aliado.aliados.get(i).visible == true){
+                        Aliado.aliados.get(i).paintAliados(g);
+                    }      
+                }       
             }
         };
         this.add(pn, BorderLayout.CENTER);
@@ -84,6 +91,12 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
         Enemigo ene = new Enemigo();
         ene.respawnObjeto();
         Enemigo.enemigos.add(ene);
+    }
+    
+    public void agregarAliados(){
+        Aliado ene = new Aliado();
+        ene.respawnObjeto();
+        Aliado.aliados.add(ene);
     }
 
     /**Este metodo se ejecuta cuando se presiona una tecla*/
@@ -150,6 +163,11 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
             }
             if ((contadorTurnos % 10) == 0){
                 agregaEnemigo();
+                
+                if(Aliado.aliados.size()<4){
+                    agregarAliados(); 
+                }
+                
             }
 
             contadorTurnos += 1;
