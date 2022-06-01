@@ -119,79 +119,82 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if (e.VK_W == e.getKeyCode())
-        {
-            System.out.println("W presionada");
-            pj.move(4);
-            pj.dir = 1;
-            this.repaint();
-        }
-        if (e.VK_D == e.getKeyCode())
-        {
-            System.out.println("D presionada");
-            pj.move(3);
-            pj.dir = 2;
-            this.repaint();
-        }
-        if (e.VK_S == e.getKeyCode())
-        {
-            System.out.println("S presionada");
-            pj.move(2);
-            pj.dir = 3;
-            this.repaint();
-        }
-        if (e.VK_A == e.getKeyCode())
-        {
-            System.out.println("A presionada");
-            //dot.move(4); // Flag
-            //moveDot();
-            pj.move(1);
-            pj.dir = 4;
-            this.repaint();
-        }
+        if (pj.vida > 0){
+            if (e.VK_W == e.getKeyCode())
+            {
+                System.out.println("W presionada");
+                pj.move(4);
+                pj.dir = 1;
+                this.repaint();
+            }
+            if (e.VK_D == e.getKeyCode())
+            {
+                System.out.println("D presionada");
+                pj.move(3);
+                pj.dir = 2;
+                this.repaint();
+            }
+            if (e.VK_S == e.getKeyCode())
+            {
+                System.out.println("S presionada");
+                pj.move(2);
+                pj.dir = 3;
+                this.repaint();
+            }
+            if (e.VK_A == e.getKeyCode())
+            {
+                System.out.println("A presionada");
+                //dot.move(4); // Flag
+                //moveDot();
+                pj.move(1);
+                pj.dir = 4;
+                this.repaint();
+            }
 
-        if (e.VK_SPACE == e.getKeyCode())
-        {
-            System.out.println("SPACE presionado");
-            pj.atacar();
-
-            Enemigo auxiliar = new Enemigo();
-            auxiliar.borraEnemigos(); // Borra enemigos muertos
-
-            this.repaint();
-            //dot.move(4); // Flag
-            //moveDot();
-            //pj.move(1);
-            //pj.dir = 4;
-            //this.repaint();
-        }
-
-        /* if (e.VK_P == e.getKeyCode())
-        {
-            System.out.println("P presionada");
-            Enemigo auxiliar = new Enemigo();
-            auxiliar.borraEnemigos();
-            this.repaint();
-        } */
-
-        if ((e.VK_W == e.getKeyCode()) || (e.VK_A == e.getKeyCode()) || (e.VK_S == e.getKeyCode()) || (e.VK_D == e.getKeyCode())){
-            for (int i=0;i<Enemigo.enemigos.size();i++) { 
-                Enemigo.enemigos.get(i).targetX = pj.posX;
-                Enemigo.enemigos.get(i).targetY = pj.posY;
-    
-                Enemigo.enemigos.get(i).move();
+            if (e.VK_SPACE == e.getKeyCode())
+            {
+                System.out.println("SPACE presionado");
+                pj.atacar();
 
                 Enemigo auxiliar = new Enemigo();
                 auxiliar.borraEnemigos(); // Borra enemigos muertos
-            }
-            if ((contadorTurnos % 10) == 0){
-                if (verificaEnemigos() == true){
-                    agregaEnemigo();
-                }
+
+                this.repaint();
+                //dot.move(4); // Flag
+                //moveDot();
+                //pj.move(1);
+                //pj.dir = 4;
+                //this.repaint();
             }
 
-            contadorTurnos += 1;
+            /* if (e.VK_P == e.getKeyCode())
+            {
+                System.out.println("P presionada");
+                Enemigo auxiliar = new Enemigo();
+                auxiliar.borraEnemigos();
+                this.repaint();
+            } */
+
+            if ((e.VK_W == e.getKeyCode()) || (e.VK_A == e.getKeyCode()) || (e.VK_S == e.getKeyCode()) || (e.VK_D == e.getKeyCode())){
+                for (int i=0;i<Enemigo.enemigos.size();i++) { 
+                    Enemigo.enemigos.get(i).targetX = pj.posX;
+                    Enemigo.enemigos.get(i).targetY = pj.posY;
+        
+                    Enemigo.enemigos.get(i).move();
+
+                    Enemigo auxiliar = new Enemigo();
+                    auxiliar.borraEnemigos(); // Borra enemigos muertos
+                }
+                if ((contadorTurnos % 10) == 0){
+                    if (verificaEnemigos() == true){
+                        agregaEnemigo();
+                    }
+                }
+
+                contadorTurnos += 1;
+            }
         }
+        
     }
 
     @Override

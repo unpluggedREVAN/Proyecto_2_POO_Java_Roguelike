@@ -57,17 +57,19 @@ public class Personaje implements Constantes{
     }
 
     public void move(int iden){
-        if (iden == 1 && posX > 1){
-            posX -= 35; 
-        }
-        if (iden == 2 && posY < 666){
-            posY += 35; 
-        }
-        if (iden == 3 && posX < 666){
-            posX += 35; 
-        }
-        if (iden == 4 && posY > 1){
-            posY -= 35; 
+        if (vida > 0){
+            if (iden == 1 && posX > 1){
+                posX -= 35; 
+            }
+            if (iden == 2 && posY < 666){
+                posY += 35; 
+            }
+            if (iden == 3 && posX < 666){
+                posX += 35; 
+            }
+            if (iden == 4 && posY > 1){
+                posY -= 35; 
+            }
         }
     }
 
