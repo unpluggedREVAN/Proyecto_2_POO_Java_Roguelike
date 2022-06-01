@@ -1,4 +1,4 @@
-package proyecto.pkg2;
+package Proyecto2;
 
 
 public class App {
