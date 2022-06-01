@@ -48,6 +48,9 @@ public class Personaje implements Constantes{
             g.setColor(Color.YELLOW);
             g.fillRect(posX, posY, 8, 34);
         }
+
+        g.setColor(Color.RED);
+        g.drawRect(posX-105, posY-105, 243, 243);
     }
 
     public void bajarVida(){
@@ -69,6 +72,27 @@ public class Personaje implements Constantes{
             }
             if (iden == 4 && posY > 1){
                 posY -= 35; 
+            }
+            encontrarAliado();
+        }
+    }
+
+    public void encontrarAliado(){
+        int alcanceP1;
+        int alcanceP2;
+        alcanceP1 = this.posX + (35 * 3);
+        alcanceP2 = this.posX - (35 * 3);
+        for (int i=0;i<Aliado.aliados.size();i++) { // Arreglar uno de los dos
+            if (this.posX < Aliado.aliados.get(i).coorX && Aliado.aliados.get(i).coorX <= alcanceP1 && Aliado.aliados.get(i).coorY >= posY - (35 * 3) && Aliado.aliados.get(i).coorY <= posY + (35 * 3)){ // && Aliado.aliados.get(i).coorY == posY
+                Aliado.aliados.get(i).visible = true;
+                System.out.println("Entra");
+            }
+            if (this.posX > Aliado.aliados.get(i).coorX && Aliado.aliados.get(i).coorX >= alcanceP2 && Aliado.aliados.get(i).coorY >= posY - (35 * 3) && Aliado.aliados.get(i).coorY <= posY + (35 * 3)){ // && Aliado.aliados.get(i).coorY == posY
+                Aliado.aliados.get(i).visible = true;
+                System.out.println("Entra2");
+            }
+            else{
+                Aliado.aliados.get(i).visible = false;
             }
         }
     }

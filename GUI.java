@@ -69,6 +69,15 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
                         Enemigo.enemigos.get(i).paintEnemigo(g);
                     }
                 }
+
+                for (int i=0;i<Aliado.aliados.size();i++) {         //
+                    if (Aliado.aliados.get(i).activo == true){ // Antes era visible
+                        System.out.println("Activo: " + Aliado.aliados.get(i).visible);
+                        if (Aliado.aliados.get(i).visible == true){ // Antes era visible
+                            Aliado.aliados.get(i).paintAliados(g);
+                        }
+                    }      
+                } 
             }
         };
         this.add(pn, BorderLayout.CENTER);
@@ -79,11 +88,11 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
         Personaje.personaje.add(pj);
 
         int cont = 1;
-        while (cont <= 3)
+        /* while (cont <= 3)
         { 
             agregaEnemigo();
             cont += 1;
-        }
+        } */ 
     }
 
     public void agregaEnemigo(){
@@ -92,10 +101,31 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
         Enemigo.enemigos.add(ene);
     }
 
+    public void agregarAliados(){
+        Aliado ali = new Aliado();
+        ali.respawnObjeto();
+        Aliado.aliados.add(ali);
+    }
+
     public boolean verificaEnemigos(){
         int contadorAux = 0;
         for (int i=0;i<Enemigo.enemigos.size();i++) { 
             if(Enemigo.enemigos.get(i).vivo == true){
+                contadorAux += 1;
+            }
+        }
+        if (contadorAux <= 3){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public boolean verificaAliados(){
+        int contadorAux = 0;
+        for (int i=0;i<Aliado.aliados.size();i++) { 
+            if(Aliado.aliados.get(i).activo == true){
                 contadorAux += 1;
             }
         }
@@ -185,11 +215,26 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
                     Enemigo auxiliar = new Enemigo();
                     auxiliar.borraEnemigos(); // Borra enemigos muertos
                 }
-                if ((contadorTurnos % 10) == 0){
-                    if (verificaEnemigos() == true){
-                        agregaEnemigo();
+                for (int i=0;i<Aliado.aliados.size();i++) { 
+                    if (Aliado.aliados.get(i).confirmaPos(pj.posX, pj.posY) == true){
+                        if (pj.vida < 8){
+                            pj.vida += 1;
+                        }
+
+                        Aliado.aliados.get(i).inactivarAliado();
+                        Aliado.aliados.get(i).borraAliados(); // Borra de la lista los inactivos
                     }
                 }
+                if ((contadorTurnos % 10) == 0){
+                    if (verificaEnemigos() == true){ // Verifica que no pase de 4 enemigos simultáneos
+                        //agregaEnemigo();
+                    }
+                    if (verificaAliados() == true){ // Verifica que no pase de 4 enemigos simultáneos
+                        agregarAliados();
+                    }
+                }
+
+                
 
                 contadorTurnos += 1;
             }
