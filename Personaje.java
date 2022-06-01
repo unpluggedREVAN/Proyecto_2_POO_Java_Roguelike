@@ -1,5 +1,7 @@
-import java.awt.Graphics;
+package Proyecto2;
+
 import java.awt.Color;
+import java.awt.Graphics;
 
 public class Personaje implements Constantes{
     int[] posicion;
@@ -58,6 +60,7 @@ public class Personaje implements Constantes{
         if (iden == 4 && posY > 1){
             posY -= 35; 
         }
+        encontrarAliado();
     }
 
     public void atacar(){
@@ -84,4 +87,35 @@ public class Personaje implements Constantes{
             }
         }
     }
+    
+    public void encontrarAliado(){
+        for (int i=0;i<Aliado.aliados.size();i++) {
+            Aliado actualA=Aliado.aliados.get(i);
+            
+            //             actualD = actualA         actualA = posX posY
+           
+            if (actualA.coorX+35 == posX || actualA.coorX-35 == posX || actualA.coorX == posX+35 ){
+                    if (actualA.coorY+35 == posY || actualA.coorY-35 == posY || actualA.coorY == posY-35){
+                        actualA.visible= true;
+                        
+                    }
+            }else{
+                    if(actualA.coorY+35 == posY || actualA.coorY-35 == posY || actualA.coorY == posY+35){
+                        
+                        if (actualA.coorX+35 == posX || actualA.coorX-35 == posX || actualA.coorX == posX+35){
+                            actualA.visible= true;
+                            
+                        }
+                    }    
+            }
+            
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
 }
