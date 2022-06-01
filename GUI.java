@@ -1,15 +1,16 @@
-import java.awt.event.*;
-import java.awt.BorderLayout;
+package Proyecto2;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import java.awt.Color;
-import java.awt.Graphics;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-//import proyecto.pkg2.Aliado;
 
 public class GUI extends JFrame implements ActionListener, Constantes, KeyListener{
     JFrame ventana;
@@ -164,7 +165,7 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
             if ((contadorTurnos % 10) == 0){
                 agregaEnemigo();
                 
-                if(Aliado.aliados.size()<4){
+                if(Aliado.aliados.size()<4){ //va 4
                     agregarAliados(); 
                 }
                 
