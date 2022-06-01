@@ -83,14 +83,14 @@ public class Personaje implements Constantes{
         alcanceP1 = this.posX + (35 * 3);
         alcanceP2 = this.posX - (35 * 3);
         for (int i=0;i<Aliado.aliados.size();i++) { // Arreglar uno de los dos
-            if (this.posX < Aliado.aliados.get(i).coorX && Aliado.aliados.get(i).coorX <= alcanceP1 && Aliado.aliados.get(i).coorY >= posY - (35 * 3) && Aliado.aliados.get(i).coorY <= posY + (35 * 3)){ // && Aliado.aliados.get(i).coorY == posY
+            if (alcanceP2 <= Aliado.aliados.get(i).coorX && Aliado.aliados.get(i).coorX <= alcanceP1 && Aliado.aliados.get(i).coorY >= posY - (35 * 3) && Aliado.aliados.get(i).coorY <= posY + (35 * 3)){ // && Aliado.aliados.get(i).coorY == posY
                 Aliado.aliados.get(i).visible = true;
                 System.out.println("Entra");
             }
-            if (this.posX > Aliado.aliados.get(i).coorX && Aliado.aliados.get(i).coorX >= alcanceP2 && Aliado.aliados.get(i).coorY >= posY - (35 * 3) && Aliado.aliados.get(i).coorY <= posY + (35 * 3)){ // && Aliado.aliados.get(i).coorY == posY
+            /* if (this.posX > Aliado.aliados.get(i).coorX && Aliado.aliados.get(i).coorX >= alcanceP2 && Aliado.aliados.get(i).coorY >= posY - (35 * 3) && Aliado.aliados.get(i).coorY <= posY + (35 * 3)){ // && Aliado.aliados.get(i).coorY == posY
                 Aliado.aliados.get(i).visible = true;
                 System.out.println("Entra2");
-            }
+            } */
             else{
                 Aliado.aliados.get(i).visible = false;
             }

@@ -88,11 +88,11 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
         Personaje.personaje.add(pj);
 
         int cont = 1;
-        /* while (cont <= 3)
+        while (cont <= 3)
         { 
             agregaEnemigo();
             cont += 1;
-        } */ 
+        }
     }
 
     public void agregaEnemigo(){
@@ -227,7 +227,7 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
                 }
                 if ((contadorTurnos % 10) == 0){
                     if (verificaEnemigos() == true){ // Verifica que no pase de 4 enemigos simultáneos
-                        //agregaEnemigo();
+                        agregaEnemigo();
                     }
                     if (verificaAliados() == true){ // Verifica que no pase de 4 enemigos simultáneos
                         agregarAliados();
