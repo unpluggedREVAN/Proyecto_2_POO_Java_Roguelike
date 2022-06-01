@@ -1,18 +1,13 @@
 
-//package proyecto.pkg2;
+package Proyecto2;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-import java.util.ArrayList;
 
-/**
- *
- * @author Diana
- */
 public class Aliado {
-    public boolean visible;
+   public boolean visible;
     public int color;
     
     public int coorX;
