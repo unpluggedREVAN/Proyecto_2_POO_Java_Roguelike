@@ -4,8 +4,11 @@ import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.net.URL;
+import javax.swing.ImageIcon;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -19,6 +22,12 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
     //Enemigo ene;
     Enemigo ene2;
     Enemigo ene3;
+
+    JLabel simbolo;
+    JPanel panelIm;
+
+    JLabel simbolo2;
+    JPanel panelIm2;
 
     int contadorTurnos;
 
@@ -34,11 +43,12 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
     GUI(){
         this.setTitle("Proyecto 2 - Roguelike");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setVisible(true);
+        //this.setVisible(true);
         this.addKeyListener(this);
-        this.setBounds(50,50,740,745); // Cambiar para los nuevos paneles
+        this.setBounds(50,50,720,950); // Cambiar para los nuevos paneles // 1145
         ordenaComplementos();
         crearTablero(1, 0, 0);
+        this.setVisible(true); // Tiene que estar después de crear tablero
         contadorTurnos = 1;
         
         //agregarElementos(); // Flags
@@ -81,6 +91,26 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
             }
         };
         this.add(pn, BorderLayout.CENTER);
+        
+
+        URL urlImagen = GUI.class.getClassLoader().getResource("banner.png");
+        ImageIcon imagenInfo = new ImageIcon(urlImagen);
+        simbolo = new JLabel(imagenInfo);
+        simbolo.setIcon(imagenInfo);
+        panelIm = new JPanel();
+        panelIm.add(simbolo);
+        this.add(panelIm, BorderLayout.SOUTH);
+        System.out.println("Llega");
+
+        URL urlImagen2 = GUI.class.getClassLoader().getResource("8.png");
+        ImageIcon imagenInfo2 = new ImageIcon(urlImagen2);
+        simbolo2 = new JLabel(imagenInfo2);
+        simbolo2.setIcon(imagenInfo2);
+        panelIm2 = new JPanel();
+        panelIm2.add(simbolo2);
+        this.add(panelIm2, BorderLayout.NORTH);
+        System.out.println("Llega");
+
     }
 
     public void ordenaComplementos(){
@@ -137,6 +167,48 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
         }
     }
 
+    public void actualizaCorazones(){
+        URL urlImagen2 = GUI.class.getClassLoader().getResource("8.png");
+        panelIm2.removeAll();
+
+        if (pj.vida == 8){
+            urlImagen2 = GUI.class.getClassLoader().getResource("8.png");
+        }
+        if (pj.vida == 7){
+            urlImagen2 = GUI.class.getClassLoader().getResource("7.png");
+        }
+        if (pj.vida == 6){
+            urlImagen2 = GUI.class.getClassLoader().getResource("6.png");
+        }
+        if (pj.vida == 5){
+            urlImagen2 = GUI.class.getClassLoader().getResource("5.png");
+        }
+        if (pj.vida == 4){
+            urlImagen2 = GUI.class.getClassLoader().getResource("4.png");
+        }
+        if (pj.vida == 3){
+            urlImagen2 = GUI.class.getClassLoader().getResource("3.png");
+        }
+        if (pj.vida == 2){
+            urlImagen2 = GUI.class.getClassLoader().getResource("2.png");
+        }
+        if (pj.vida == 1){
+            urlImagen2 = GUI.class.getClassLoader().getResource("1.png");
+        }
+        if (pj.vida == 0){
+            urlImagen2 = GUI.class.getClassLoader().getResource("0.png");
+        }
+        ImageIcon imagenInfo2 = new ImageIcon(urlImagen2);
+        //simbolo2 = new JLabel(imagenInfo2);
+        simbolo2.setIcon(imagenInfo2);
+        //panelIm2 = new JPanel();
+        panelIm2.add(simbolo2);
+        this.add(panelIm2, BorderLayout.EAST);
+
+        panelIm2.repaint();
+        System.out.println("Llega");
+    }
+
     /**Este metodo se ejecuta cuando se presiona una tecla*/
     @Override
     public void keyPressed(KeyEvent e) {
@@ -189,6 +261,11 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
                 Enemigo auxiliar = new Enemigo();
                 auxiliar.borraEnemigos(); // Borra enemigos muertos
 
+                //
+                
+                
+
+
                 this.repaint();
                 //dot.move(4); // Flag
                 //moveDot();
@@ -235,7 +312,7 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
                 }
 
                 
-
+                actualizaCorazones();
                 contadorTurnos += 1;
             }
         }
