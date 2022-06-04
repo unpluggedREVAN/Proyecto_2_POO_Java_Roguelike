@@ -1,4 +1,5 @@
 public class Factory {
+    
     public void creaInstancia(int categoria){
         if (categoria == 1){ // Crear instancia de personaje
             agregaPersonaje();
@@ -22,7 +23,7 @@ public class Factory {
         Aliado ali = new Aliado();
         ali.respawnObjeto();
         Aliado.aliados.add(ali);
-        Personaje.observerA.add(ali); // Observer // Agrega a la lista de observer
+        Personaje.observerA.add(ali); // Agrega a la lista de observer
     }
 
     public void agregaPersonaje(){

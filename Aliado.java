@@ -1,11 +1,8 @@
-import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-
-public class Aliado extends NPC implements Observer{
+public class Aliado extends NPC implements Observer, Model{
     public boolean visible;
-
     public boolean activo;
     
     static ArrayList<Aliado> aliados = new ArrayList<Aliado>();
@@ -14,17 +11,13 @@ public class Aliado extends NPC implements Observer{
         visible = false;
         activo = true;
     }
-    
-    /* public void ActivarVisibilidad(){
-        this.visible=true;
-    
-    } */
 
     public void paintNPC(Graphics g){
-        g.setColor(Color.BLUE);
+        g.setColor(ALIADO_COLOR);
         g.fillRect(coorX, coorY, 34, 34); 
     }
 
+    /// Método update de la interfaz ///
     public void update(int posX, int posY){
         this.inactivarAliado();
         this.borraAliados(); // Borra de la lista los inactivos
@@ -40,13 +33,14 @@ public class Aliado extends NPC implements Observer{
                 aliados.remove(i);
             }
         }       
-        for (int i=0;i<Personaje.observerA.size();i++) { // Aquí se eliminan de la lista de observadores
+        for (int i=0;i<Personaje.observerA.size();i++) { // Se eliminan de la lista de observadores
             if (Personaje.observerA.get(i).activo == false){
                 Personaje.observerA.remove(i);
             }
         }         
     }
 
+    // Verifica si el aliado fue rescatado por el personaje
     public boolean confirmaPos(int pX, int pY){
         if (pX == this.coorX && pY == this.coorY){
             return true;
@@ -56,34 +50,14 @@ public class Aliado extends NPC implements Observer{
         }
     }
     
-    
+    /// Reordena de forma aleatoria las nuevas instancias aliado ///
     public void respawnObjeto(){
-        int numRandom = (int)Math.floor(Math.random()*(19-1)+1);
+        int numRandom = (int)Math.floor(Math.random()*(POSIBILIDADES-1)+1);
         int multiplo = (numRandom * 35) + 1;
 
         coorX = multiplo;
-
-        /* for (int i = 0; i < listaAmenazas.size(); i++){
-            if (i == 0 || i == 3){
-                listaAmenazas.get(i).coorX = multiplo;
-            }
-            else{
-                listaAmenazas.get(i).coorX = multiplo + 15;
-            }
-        } */
-
-        numRandom = (int)Math.floor(Math.random()*(19-1)+1);
+        numRandom = (int)Math.floor(Math.random()*(POSIBILIDADES-1)+1);
         multiplo = (numRandom * 35) + 1;
-
         coorY = multiplo;
-
-        /* for (int i = 0; i < listaAmenazas.size(); i++){
-            if (i == 0 || i == 1){
-                listaAmenazas.get(i).coorY = multiplo;
-            }
-            else{
-                listaAmenazas.get(i).coorY = multiplo + 15;
-            }
-        } */
     }
 }

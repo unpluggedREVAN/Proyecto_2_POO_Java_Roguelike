@@ -1,13 +1,9 @@
 import java.awt.Graphics;
-import java.awt.Color;
 import java.util.*;
 
-//import java.util.Random;
-
-public class Enemigo extends NPC implements Observer{
+public class Enemigo extends NPC implements Observer, Model{
     public int targetX;
     public int targetY;
-
     public boolean vivo;
 
     static ArrayList<Enemigo> enemigos = new ArrayList<Enemigo>();
@@ -19,19 +15,19 @@ public class Enemigo extends NPC implements Observer{
     }
 
     public void paintNPC(Graphics g){
-        g.setColor(Color.GREEN);
+        g.setColor(ENEMIGO_COLOR);
         g.fillRect(coorX, coorY, 34, 34); 
     }
 
     public void update(int posX, int posY){ // De observer
-        this.targetX = posX; // Personaje.personaje
+        this.targetX = posX;
         this.targetY = posY;
 
         this.move();
         this.borraEnemigos(); // Borra enemigos muertos
     }
 
-    public boolean verificaColision(int dir, int xA, int yA){
+    public boolean verificaColision(int dir, int xA, int yA){ // No se traslapan los enemigos
         for (int i=0;i<enemigos.size();i++) {
             if (dir == 1){
                 if (enemigos.get(i).coorX == xA){
@@ -66,8 +62,6 @@ public class Enemigo extends NPC implements Observer{
     }
 
     Personaje auxPj = new Personaje();
-    //auxPj.bajarVida(); // Borra enemigos muertos
-
     public void move(){
         if (targetX != coorX && targetY != coorY){
             int numRand = (int)Math.floor(Math.random()*(2-1+1)+1);
@@ -121,7 +115,7 @@ public class Enemigo extends NPC implements Observer{
                     }
                 }
             }
-            if (targetX == coorX && targetY == coorY && vivo == true){
+            if (targetX == coorX && targetY == coorY && vivo == true){ // Cuando llega a tocar al personaje
                 vivo = false;
                 auxPj.bajarVida();
             }
@@ -141,28 +135,8 @@ public class Enemigo extends NPC implements Observer{
         int multiplo = (numRandom * 35) + 1;
 
         coorX = multiplo;
-
-        /* for (int i = 0; i < listaAmenazas.size(); i++){
-            if (i == 0 || i == 3){
-                listaAmenazas.get(i).coorX = multiplo;
-            }
-            else{
-                listaAmenazas.get(i).coorX = multiplo + 15;
-            }
-        } */
-
-        numRandom = (int)Math.floor(Math.random()*(19-1)+1);
+        numRandom = (int)Math.floor(Math.random()*(POSIBILIDADES-1)+1);
         multiplo = (numRandom * 35) + 1;
-
         coorY = multiplo;
-
-        /* for (int i = 0; i < listaAmenazas.size(); i++){
-            if (i == 0 || i == 1){
-                listaAmenazas.get(i).coorY = multiplo;
-            }
-            else{
-                listaAmenazas.get(i).coorY = multiplo + 15;
-            }
-        } */
     }
 }
