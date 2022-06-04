@@ -12,4 +12,6 @@ public interface Constantes {
     public static final Color TARGET_COLOR = Color.GREEN;
     public static final Color BG_COLOR = Color.LIGHT_GRAY;
     public static final Color DOT_COLOR = Color.RED;
+    
+    public int contadorTurnos = 1;
 }

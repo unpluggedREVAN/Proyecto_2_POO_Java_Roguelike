@@ -2,8 +2,7 @@ import java.awt.Graphics;
 import java.awt.Color;
 import java.util.*;
 
-public class Personaje implements Constantes{
-    int[] posicion;
+public class Personaje implements Constantes, Observable{
     public int posX;
     public int posY;
     public int dir;
@@ -11,13 +10,50 @@ public class Personaje implements Constantes{
 
     static ArrayList<Personaje> personaje = new ArrayList<Personaje>();
 
+    static ArrayList<Enemigo> observerE = new ArrayList<Enemigo>(); // Lista observers
+    static ArrayList<Aliado> observerA = new ArrayList<Aliado>(); // Lista observers
+
     public Personaje(){
-        posicion = new int[2];
         posX = 1;
         posY = 1;
         dir = 1;
         vida = 8;
     }
+
+
+
+    public void notificar(){
+        for (int i=0;i<observerE.size();i++) { 
+            observerE.get(i).update(personaje.get(0).posX, personaje.get(0).posY); // Llama a update de enemigo
+            eliminarObserver();
+        }
+        for (int i=0;i<observerA.size();i++) { 
+            if (observerA.get(i).confirmaPos(personaje.get(0).posX, personaje.get(0).posY) == true){
+                System.out.println("Entra en aliado");
+                if (personaje.get(0).vida < 8){
+                    personaje.get(0).vida += 1;
+                }
+
+                observerA.get(i).update(0, 0); // Llama a update de aliado
+                eliminarObserver();
+            }
+        }
+    }
+
+    public void eliminarObserver(){
+        for (int i=0;i<observerA.size();i++) { // Aquí se eliminan de la lista de observadores
+            if (observerA.get(i).activo == false){
+                observerA.remove(i);
+            }
+        }  
+        for (int i=0;i<observerE.size();i++) {
+            if (observerE.get(i).vivo == false){
+                observerE.remove(i);
+            }
+        }   
+    }
+
+
 
     public void paintPersonaje(Graphics g){
         if (dir == 1){

@@ -9,15 +9,15 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.net.URL;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane; // Para las alertas
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class GUI extends JFrame implements ActionListener, Constantes, KeyListener{
+
+public class GUI extends JFrame implements Constantes, KeyListener{
     JFrame ventana;
     JButton next;
-    Mapa mapa;
-    Dot dot;
     Personaje pj;
     //Enemigo ene;
     Enemigo ene2;
@@ -30,6 +30,8 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
     JPanel panelIm2;
 
     int contadorTurnos;
+
+    Factory creador = new Factory(); // Debería ir en controller
 
     /*private static Teclado teclado; // Flags
 
@@ -45,11 +47,12 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //this.setVisible(true);
         this.addKeyListener(this);
-        this.setBounds(50,50,720,950); // Cambiar para los nuevos paneles // 1145
+        this.setBounds(50,50,720,990); // Cambiar para los nuevos paneles // 1145
         ordenaComplementos();
         crearTablero(1, 0, 0);
         this.setVisible(true); // Tiene que estar después de crear tablero
-        contadorTurnos = 1;
+        //contadorTurnos = 1;
+        
         
         //agregarElementos(); // Flags
         //this.pack();
@@ -76,7 +79,7 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
                 
                 for (int i=0;i<Enemigo.enemigos.size();i++) {
                     if (Enemigo.enemigos.get(i).vivo == true){
-                        Enemigo.enemigos.get(i).paintEnemigo(g);
+                        Enemigo.enemigos.get(i).paintNPC(g);
                     }
                 }
 
@@ -84,7 +87,7 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
                     if (Aliado.aliados.get(i).activo == true){ // Antes era visible
                         System.out.println("Activo: " + Aliado.aliados.get(i).visible);
                         if (Aliado.aliados.get(i).visible == true){ // Antes era visible
-                            Aliado.aliados.get(i).paintAliados(g);
+                            Aliado.aliados.get(i).paintNPC(g);
                         }
                     }      
                 } 
@@ -93,7 +96,7 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
         this.add(pn, BorderLayout.CENTER);
         
 
-        URL urlImagen = GUI.class.getClassLoader().getResource("banner.png");
+        URL urlImagen = GUI.class.getClassLoader().getResource("banner2.png"); // getClassLoader()
         ImageIcon imagenInfo = new ImageIcon(urlImagen);
         simbolo = new JLabel(imagenInfo);
         simbolo.setIcon(imagenInfo);
@@ -102,7 +105,7 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
         this.add(panelIm, BorderLayout.SOUTH);
         System.out.println("Llega");
 
-        URL urlImagen2 = GUI.class.getClassLoader().getResource("8.png");
+        URL urlImagen2 = GUI.class.getClassLoader().getResource("8.png"); // getClassLoader()
         ImageIcon imagenInfo2 = new ImageIcon(urlImagen2);
         simbolo2 = new JLabel(imagenInfo2);
         simbolo2.setIcon(imagenInfo2);
@@ -114,27 +117,14 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
     }
 
     public void ordenaComplementos(){
-        pj = new Personaje();
-        Personaje.personaje.add(pj);
+        creador.creaInstancia(1);
 
         int cont = 1;
         while (cont <= 3)
-        { 
-            agregaEnemigo();
+        {
+            creador.creaInstancia(2);
             cont += 1;
         }
-    }
-
-    public void agregaEnemigo(){
-        Enemigo ene = new Enemigo();
-        ene.respawnObjeto();
-        Enemigo.enemigos.add(ene);
-    }
-
-    public void agregarAliados(){
-        Aliado ali = new Aliado();
-        ali.respawnObjeto();
-        Aliado.aliados.add(ali);
     }
 
     public boolean verificaEnemigos(){
@@ -171,32 +161,34 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
         URL urlImagen2 = GUI.class.getClassLoader().getResource("8.png");
         panelIm2.removeAll();
 
-        if (pj.vida == 8){
+        if (Personaje.personaje.get(0).vida == 8){
             urlImagen2 = GUI.class.getClassLoader().getResource("8.png");
         }
-        if (pj.vida == 7){
+        if (Personaje.personaje.get(0).vida == 7){
             urlImagen2 = GUI.class.getClassLoader().getResource("7.png");
         }
-        if (pj.vida == 6){
+        if (Personaje.personaje.get(0).vida == 6){
             urlImagen2 = GUI.class.getClassLoader().getResource("6.png");
         }
-        if (pj.vida == 5){
+        if (Personaje.personaje.get(0).vida == 5){
             urlImagen2 = GUI.class.getClassLoader().getResource("5.png");
         }
-        if (pj.vida == 4){
+        if (Personaje.personaje.get(0).vida == 4){
             urlImagen2 = GUI.class.getClassLoader().getResource("4.png");
         }
-        if (pj.vida == 3){
+        if (Personaje.personaje.get(0).vida == 3){
             urlImagen2 = GUI.class.getClassLoader().getResource("3.png");
         }
-        if (pj.vida == 2){
+        if (Personaje.personaje.get(0).vida == 2){
             urlImagen2 = GUI.class.getClassLoader().getResource("2.png");
         }
-        if (pj.vida == 1){
+        if (Personaje.personaje.get(0).vida == 1){
             urlImagen2 = GUI.class.getClassLoader().getResource("1.png");
         }
-        if (pj.vida == 0){
+        if (Personaje.personaje.get(0).vida == 0){
             urlImagen2 = GUI.class.getClassLoader().getResource("0.png");
+            
+            
         }
         ImageIcon imagenInfo2 = new ImageIcon(urlImagen2);
         //simbolo2 = new JLabel(imagenInfo2);
@@ -221,26 +213,26 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if (pj.vida > 0){
+        if (Personaje.personaje.get(0).vida > 0){
             if (e.VK_W == e.getKeyCode())
             {
                 System.out.println("W presionada");
-                pj.move(4);
-                pj.dir = 1;
+                Personaje.personaje.get(0).move(4);
+                Personaje.personaje.get(0).dir = 1;
                 this.repaint();
             }
             if (e.VK_D == e.getKeyCode())
             {
                 System.out.println("D presionada");
-                pj.move(3);
-                pj.dir = 2;
+                Personaje.personaje.get(0).move(3);
+                Personaje.personaje.get(0).dir = 2;
                 this.repaint();
             }
             if (e.VK_S == e.getKeyCode())
             {
                 System.out.println("S presionada");
-                pj.move(2);
-                pj.dir = 3;
+                Personaje.personaje.get(0).move(2);
+                Personaje.personaje.get(0).dir = 3;
                 this.repaint();
             }
             if (e.VK_A == e.getKeyCode())
@@ -248,15 +240,15 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
                 System.out.println("A presionada");
                 //dot.move(4); // Flag
                 //moveDot();
-                pj.move(1);
-                pj.dir = 4;
+                Personaje.personaje.get(0).move(1);
+                Personaje.personaje.get(0).dir = 4;
                 this.repaint();
             }
 
             if (e.VK_SPACE == e.getKeyCode())
             {
                 System.out.println("SPACE presionado");
-                pj.atacar();
+                Personaje.personaje.get(0).atacar();
 
                 Enemigo auxiliar = new Enemigo();
                 auxiliar.borraEnemigos(); // Borra enemigos muertos
@@ -283,60 +275,28 @@ public class GUI extends JFrame implements ActionListener, Constantes, KeyListen
             } */
 
             if ((e.VK_W == e.getKeyCode()) || (e.VK_A == e.getKeyCode()) || (e.VK_S == e.getKeyCode()) || (e.VK_D == e.getKeyCode())){
-                for (int i=0;i<Enemigo.enemigos.size();i++) { 
-                    Enemigo.enemigos.get(i).targetX = pj.posX;
-                    Enemigo.enemigos.get(i).targetY = pj.posY;
-        
-                    Enemigo.enemigos.get(i).move();
+                Personaje.personaje.get(0).notificar(); // Realiza el proceso observer
 
-                    Enemigo auxiliar = new Enemigo();
-                    auxiliar.borraEnemigos(); // Borra enemigos muertos
-                }
-                for (int i=0;i<Aliado.aliados.size();i++) { 
-                    if (Aliado.aliados.get(i).confirmaPos(pj.posX, pj.posY) == true){
-                        if (pj.vida < 8){
-                            pj.vida += 1;
-                        }
-
-                        Aliado.aliados.get(i).inactivarAliado();
-                        Aliado.aliados.get(i).borraAliados(); // Borra de la lista los inactivos
-                    }
-                }
                 if ((contadorTurnos % 10) == 0){
                     if (verificaEnemigos() == true){ // Verifica que no pase de 4 enemigos simultáneos
-                        agregaEnemigo();
+                        creador.creaInstancia(2);
                     }
                     if (verificaAliados() == true){ // Verifica que no pase de 4 enemigos simultáneos
-                        agregarAliados();
+                        creador.creaInstancia(3);
                     }
                 }
 
                 
                 actualizaCorazones();
+
+                if (Personaje.personaje.get(0).vida == 0){
+                    JOptionPane.showMessageDialog(ventana, "Fin del juego");
+                }
+
                 contadorTurnos += 1;
             }
         }
         
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals("next")){
-            dot.move(3);
-            moveDot();
-
-        }
-        else{
-            mapa.tablero[dot.target[X]][dot.target[Y]].clearTarget();
-            dot.target = ((Casilla)e.getSource()).getCoords();
-            ((Casilla)e.getSource()).setAsTarget();
-            moveDot();
-        }
-    }
-
-    public void moveDot(){
-        mapa.tablero[dot.lastPosition[X]][dot.lastPosition[Y]].clearDot();
-        mapa.tablero[dot.currentPosition[X]][dot.currentPosition[Y]].setAsDot();
     }
 
 }

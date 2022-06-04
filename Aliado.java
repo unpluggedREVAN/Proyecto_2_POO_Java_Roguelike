@@ -3,12 +3,8 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 
-public class Aliado {
+public class Aliado extends NPC implements Observer{
     public boolean visible;
-    public int color;
-    
-    public int coorX;
-    public int coorY;
 
     public boolean activo;
     
@@ -24,9 +20,14 @@ public class Aliado {
     
     } */
 
-    public void paintAliados(Graphics g){
+    public void paintNPC(Graphics g){
         g.setColor(Color.BLUE);
         g.fillRect(coorX, coorY, 34, 34); 
+    }
+
+    public void update(int posX, int posY){
+        this.inactivarAliado();
+        this.borraAliados(); // Borra de la lista los inactivos
     }
 
     public void inactivarAliado(){
@@ -38,7 +39,12 @@ public class Aliado {
             if (aliados.get(i).activo == false){
                 aliados.remove(i);
             }
-        }            
+        }       
+        for (int i=0;i<Personaje.observerA.size();i++) { // Aquí se eliminan de la lista de observadores
+            if (Personaje.observerA.get(i).activo == false){
+                Personaje.observerA.remove(i);
+            }
+        }         
     }
 
     public boolean confirmaPos(int pX, int pY){

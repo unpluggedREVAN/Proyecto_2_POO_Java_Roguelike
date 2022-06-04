@@ -4,12 +4,9 @@ import java.util.*;
 
 //import java.util.Random;
 
-public class Enemigo {
+public class Enemigo extends NPC implements Observer{
     public int targetX;
     public int targetY;
-
-    public int coorX;
-    public int coorY;
 
     public boolean vivo;
 
@@ -21,9 +18,17 @@ public class Enemigo {
         vivo = true;
     }
 
-    public void paintEnemigo(Graphics g){
+    public void paintNPC(Graphics g){
         g.setColor(Color.GREEN);
         g.fillRect(coorX, coorY, 34, 34); 
+    }
+
+    public void update(int posX, int posY){ // De observer
+        this.targetX = posX; // Personaje.personaje
+        this.targetY = posY;
+
+        this.move();
+        this.borraEnemigos(); // Borra enemigos muertos
     }
 
     public boolean verificaColision(int dir, int xA, int yA){
@@ -116,7 +121,7 @@ public class Enemigo {
                     }
                 }
             }
-            if (targetX == coorX && targetY == coorY){
+            if (targetX == coorX && targetY == coorY && vivo == true){
                 vivo = false;
                 auxPj.bajarVida();
             }
