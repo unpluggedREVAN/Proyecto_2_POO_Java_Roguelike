@@ -1,3 +1,7 @@
+// Proyecto roguelike - POO
+// Diana Sanabria (2021436548) / Jose Pablo Agüero Mora (2021126372) 
+// Clase Personaje
+
 import java.awt.Graphics;
 import java.util.*;
 
