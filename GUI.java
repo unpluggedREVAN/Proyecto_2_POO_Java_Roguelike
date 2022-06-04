@@ -1,3 +1,7 @@
+// Proyecto roguelike - POO
+// Diana Sanabria (2021436548) / Jose Pablo Agüero Mora (2021126372) 
+// Clase GUI (View)
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
